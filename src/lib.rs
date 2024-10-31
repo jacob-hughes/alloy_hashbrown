@@ -9,6 +9,7 @@
 //! [here]: https://github.com/abseil/abseil-cpp/blob/master/absl/container/internal/raw_hash_set.h
 //! [CppCon talk]: https://www.youtube.com/watch?v=ncHmEUmJZf4
 
+#![feature(gc)]
 #![no_std]
 #![cfg_attr(
     feature = "nightly",
@@ -44,7 +45,9 @@
 extern crate std;
 
 #[cfg_attr(test, macro_use)]
+#[allow(unused_extern_crates)]
 extern crate alloc;
+
 
 #[cfg(feature = "nightly")]
 #[cfg(doctest)]

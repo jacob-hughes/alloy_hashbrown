@@ -1,6 +1,7 @@
 use crate::alloc::alloc::{handle_alloc_error, Layout};
 use crate::scopeguard::{guard, ScopeGuard};
 use crate::TryReserveError;
+use core::gc::DropMethodFinalizerElidable;
 use core::iter::FusedIterator;
 use core::marker::PhantomData;
 use core::mem;
@@ -3657,6 +3658,8 @@ impl<T, A: Allocator + Default> Default for RawTable<T, A> {
         Self::new_in(Default::default())
     }
 }
+
+unsafe impl<T, A: Allocator > DropMethodFinalizerElidable for RawTable<T, A> {}
 
 #[cfg(feature = "nightly")]
 unsafe impl<#[may_dangle] T, A: Allocator> Drop for RawTable<T, A> {
